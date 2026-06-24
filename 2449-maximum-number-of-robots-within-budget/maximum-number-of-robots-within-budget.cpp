@@ -10,7 +10,7 @@ public:
             s.insert(chargeTimes[j]);
             cost += runningCosts[j];
 
-            while(!s.empty() && (*s.rbegin() + (j-i+1) * cost) > budget){
+            while(!s.empty() && (*s.rbegin() + (j-i+1)*cost) > budget){
 
                 s.erase(s.find(chargeTimes[i]));
                 cost -= runningCosts[i];
