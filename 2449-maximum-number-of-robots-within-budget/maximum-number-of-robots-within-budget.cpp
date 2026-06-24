@@ -2,17 +2,20 @@ class Solution {
 public:
     int maximumRobots(vector<int>& chargeTimes, vector<int>& runningCosts, long long budget) {
         
-        multiset<int> s;
+        deque<int> dq;
         long long i = 0, j = 0, robots = 0, cost = 0;
 
         while(j < chargeTimes.size()){
 
-            s.insert(chargeTimes[j]);
+            while(!dq.empty() && chargeTimes[dq.back()] <= chargeTimes[j])
+            dq.pop_back();
+            
+            dq.push_back(j);
             cost += runningCosts[j];
 
-            while(!s.empty() && (*s.rbegin() + (j-i+1)*cost) > budget){
+            while(!dq.empty() && (chargeTimes[dq.front()] + (j-i+1)*cost) > budget){
 
-                s.erase(s.find(chargeTimes[i]));
+                if(dq.front() == i) dq.pop_front();
                 cost -= runningCosts[i];
                 i++;
             }
