@@ -6,24 +6,22 @@ public:
         int n = grid.size();
         int m = grid[0].size();
 
-        // if(i < 0 || i == n || j<0 || j==m) return 0;
+        int r[4] = {-1, 1, 0, 0};
+        int c[4] = {0, 0, 1, -1};
         
         if(dp[i][j] != -1) return dp[i][j];
 
-        int right = 1, left = 1, down = 1, up = 1;
-        if(j+1 < m && grid[i][j+1] > grid[i][j])
-        right = 1 + memo(grid, i, j+1, dp);
+        int ans = 1;
 
-        if(j-1 >= 0 && grid[i][j-1] > grid[i][j])
-        left = 1 + memo(grid, i, j-1, dp);
+        for(int k = 0; k<4; k++){
 
-        if(i+1 < n && grid[i+1][j] > grid[i][j])
-        down = 1 + memo(grid, i+1, j, dp);
+            int x = i + r[k];
+            int y = j + c[k];
 
-        if(i-1 >= 0 && grid[i-1][j] > grid[i][j])
-        up = 1 + memo(grid, i-1, j, dp);
-
-        return dp[i][j] = max({up, left, down, right});
+            if(x>=0 && x<n && y>=0 && y<m && grid[x][y] > grid[i][j])
+            ans = max(ans, 1 + memo(grid, x, y, dp));
+        }
+        return dp[i][j] = ans;
     }
 
     int longestIncreasingPath(vector<vector<int>>& matrix) {
