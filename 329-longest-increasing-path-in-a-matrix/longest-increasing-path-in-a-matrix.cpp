@@ -6,7 +6,7 @@ public:
         int n = grid.size();
         int m = grid[0].size();
 
-        if(i < 0 || i == n || j<0 || j==m) return 0;
+        // if(i < 0 || i == n || j<0 || j==m) return 0;
         
         if(dp[i][j] != -1) return dp[i][j];
 
