@@ -32,10 +32,9 @@ public:
 
         int path = 0;
         for(int i = 0; i<n; i++)
-        for(int j = 0; j<m; j++){
-
-            path = max(path, memo(matrix, i, j, dp));
-        }
+        for(int j = 0; j<m; j++)
+        path = max(path, memo(matrix, i, j, dp));
+        
         return path;
     }
 };
