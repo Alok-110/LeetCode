@@ -78,7 +78,6 @@ public:
             }
             time++;
         }
-        // if(canReach(grid, fireTime, 0)) == false return -1;
 
         int lo = 0, hi = n*m, mid, ans=-1;
         while(lo <= hi){
