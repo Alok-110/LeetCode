@@ -78,7 +78,6 @@ public:
             }
             time++;
         }
-
         int lo = 0, hi = n*m, mid, ans=-1;
         while(lo <= hi){
 
