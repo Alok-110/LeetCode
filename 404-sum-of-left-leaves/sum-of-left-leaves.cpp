@@ -16,18 +16,18 @@ public:
     int sumOfLeftLeaves(TreeNode* root) {
         if (!root) return 0;
 
-        int left = 0, right = 0;
+        int ans = 0;
 
         if (root->left) {
             if (!root->left->left && !root->left->right)
-                left = root->left->val;
+                ans += root->left->val;
             else
-                left = sumOfLeftLeaves(root->left);
+                ans += sumOfLeftLeaves(root->left);
         }
 
         if (root->right)
-            right = sumOfLeftLeaves(root->right);
+            ans +=  sumOfLeftLeaves(root->right);
 
-        return left + right;
+        return ans;
     }
 };
