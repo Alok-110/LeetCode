@@ -37,11 +37,13 @@ public:
         parent.resize(n+1);
         rank.resize(n+1, 0);
 
-        for(int i = 0; i<=n; i++) parent[i] = i;
+        for(int i = 0; i<n; i++) parent[i]=i;
 
         for(auto &it: edges){
 
-            if(find(it[0]) == find(it[1])) return {it[0], it[1]};
+            if(find(it[0]) == find(it[1]))
+            return {it[0], it[1]};
+
             Union(it[0], it[1]);
         }
         return {};
