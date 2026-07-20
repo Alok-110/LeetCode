@@ -1,99 +1,67 @@
 class Solution {
 public:
-    vector<int> parent;
-    vector<int> size;
-
-    int find(int x) {
-        if (parent[x] == x)
-            return x;
-        return parent[x] = find(parent[x]);
-    }
-
-    void Union(int x, int y) {
-
-        int x_parent = find(x);
-        int y_parent = find(y);
-
-        if (x_parent == y_parent)
-            return;
-
-        else if (size[x_parent] > size[y_parent]) {
-            parent[y_parent] = x_parent;
-            size[x_parent] += size[y_parent];
-        }
-
-        else if (size[x_parent] < size[y_parent]) {
-            parent[x_parent] = y_parent;
-            size[y_parent] += size[x_parent];
-        }
-
-        else {
-            parent[y_parent] = x_parent;
-            size[x_parent] += size[y_parent];
-        }
-    }
 
     int largestIsland(vector<vector<int>>& grid) {
-
-        bool allZero = true;
-        bool allOne = true;
-
+        
+        int n = grid.size();
+        queue<pair<int,int>> q;
+        unordered_map<int,int> mp;
+        int id = 2;
         int r[4] = {-1, 1, 0, 0};
         int c[4] = {0, 0, 1, -1};
 
-        int m = grid.size();
-        int n = grid[0].size();
+        for(int i = 0; i<n; i++)
+        for(int j = 0; j<n; j++){
 
-        parent.resize(m * n);
-        size.resize(m * n, 1);
+            if(grid[i][j] == 1){
 
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++) {
-                int idx = i * n + j;
-                parent[idx] = idx;
-            }
+                q.emplace(i,j);
+                grid[i][j] = id;
+                int area = 1;
 
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++) {
-                if (grid[i][j] == 1) {
-                    allZero = false;
-                    for (int k = 0; k < 4; k++) {
-                        int ni = i + r[k];
-                        int nj = j + c[k];
-                        if (ni >= 0 && nj >= 0 && ni < m && nj < n &&
-                            grid[ni][nj] == 1)
-                            Union(i * n + j, ni * n + nj);
-                    }
-                } else
-                    allOne = false;
-            }
+                while(!q.empty()){
 
-        if (allOne)
-            return m * n;
-        if (allZero)
-            return 1;
+                    auto[ni, nj] = q.front();
+                    q.pop();
 
-        int maxArea = 0;
+                    for(int k=0; k<4; k++){
 
-        for (int i = 0; i < m; i++)
-            for (int j = 0; j < n; j++)
-                if (grid[i][j] == 0) {
-                    set<int> s;
-                    for (int k = 0; k <= 3; k++) {
-                        if (i + r[k] >= 0 && i + r[k] < m && j + c[k] >= 0 &&
-                            j + c[k] < n && grid[i + r[k]][j + c[k]] == 1) {
-                            int uniqueParent =
-                                find((i + r[k]) * n + (j + c[k]));
-                            s.insert(uniqueParent);
+                        int x = ni+r[k];
+                        int y = nj+c[k];
+
+                        if(x>=0 && x<n && y>=0 && y<n && grid[x][y] == 1){
+
+                            q.emplace(x,y);
+                            grid[x][y] = id;
+                            area++;
                         }
                     }
-                    int area = 1;
-                    for (int a : s) {
-                        area += size[a];
-                    }
-                    maxArea = max(maxArea, area);
                 }
+                mp[id] = area;
+                id++;
+            }
+        }
+        int maxArea = 0;
+        for(auto &it: mp) maxArea = max(maxArea, it.second);
+        for(int i = 0; i<n; i++)
+        for(int j = 0; j<n; j++){
 
+            int area = 0;
+            unordered_set<int> st;
+            if(grid[i][j] == 0){
+
+                for(int k=0; k<4; k++){
+                    int x = i+r[k];
+                    int y = j+c[k];
+
+                    if(x>=0 && x<n && y>=0 && y<n)
+                    st.insert(grid[x][y]);
+                }
+                for(auto &it: st)
+                area += mp[it];                
+            }
+            maxArea = max(area+1, maxArea);
+        }
         return maxArea;
     }
 };
