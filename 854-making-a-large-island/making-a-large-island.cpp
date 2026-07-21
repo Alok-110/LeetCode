@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    int largestIsland(vector<vector<int>>& grid) {
+    int largestIsland(auto& grid) {
         
         int n = grid.size();
         queue<pair<int,int>> q;
