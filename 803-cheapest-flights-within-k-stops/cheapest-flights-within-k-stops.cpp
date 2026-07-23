@@ -1,7 +1,7 @@
 class Solution {
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst,
-                          int k) {
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
+
         vector<vector<pair<int, int>>> adj(n);
 
         for (auto& it : flights) {
@@ -20,8 +20,7 @@ public:
             int size = q.size();
             while (size--) {
 
-                int node = q.front().first;
-                int currCost = q.front().second;
+                auto[node, currCost] = q.front();
                 q.pop();
 
                 for (auto it : adj[node]) {
