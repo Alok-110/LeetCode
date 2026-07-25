@@ -2,6 +2,7 @@ class Solution {
 public:
     int minimumEffortPath(vector<vector<int>>& heights) {
 
+        using P = pair<int,int>;
         int n = heights.size();
         int m = heights[0].size();
         priority_queue<pair<int, pair<int,int>> , vector<pair<int, pair<int,int>>>, greater<pair<int, pair<int,int>>>> pq;
@@ -36,6 +37,5 @@ public:
             }
         }
         return effort[n-1][m-1];
-
     }
 };
