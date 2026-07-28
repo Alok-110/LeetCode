@@ -3,10 +3,10 @@ public:
     int maxAbsoluteSum(vector<int>& nums) {
         
         int posSum = 0, negSum = 0, posMax = 0, negMax = 0;
-        for(int i=0; i<nums.size(); i++){
+        for(auto &x: nums){
 
-            posSum += nums[i];
-            negSum += nums[i];
+            posSum += x;
+            negSum += x;
 
             posMax = max(posMax, posSum);
             negMax = min(negMax, negSum);
