@@ -13,18 +13,17 @@ public:
 
         if(dp[i][j] != -1) return dp[i][j];
 
-        bool match = false, match2 = false, match3 = false, skip = false;
+        bool match = false, match2 = false, skip = false;
         if(s[i] == p[j] || p[j]=='?')
         match = match || memo(s, p, i+1, j+1, dp);
 
         if(p[j] == '*'){
 
             match2 = match2 || memo(s, p, i+1, j, dp);
-            match3 = match3 || memo(s, p, i+1, j+1, dp);
             skip = skip || memo(s, p, i, j+1, dp);
         }
 
-        return dp[i][j] = match || match2 || match3 || skip;
+        return dp[i][j] = match || match2 || skip;
     }
 
     bool isMatch(string s, string p) {
