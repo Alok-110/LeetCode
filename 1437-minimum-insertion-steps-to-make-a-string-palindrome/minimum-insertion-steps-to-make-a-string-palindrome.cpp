@@ -3,7 +3,7 @@ public:
 
     int memo(auto &s, auto &t, int i, int j, auto &dp){
 
-        if(i==s.size() || j==t.size()) return 0;
+        if(i==s.size() || j==s.size()) return 0;
 
         if(dp[i][j] != -1) return dp[i][j];
 
@@ -19,10 +19,10 @@ public:
 
     int minInsertions(string s) {
         
+        vector<vector<int>> dp(s.size(), vector<int> (s.size(), -1));
         string t = s;
         reverse(t.begin(), t.end());
-        vector<vector<int>> dp(s.size(), vector<int> (s.size(), -1));
-
-        return s.size() - memo(s, t, 0, 0, dp);
+        int lps = memo(s, t, 0, 0, dp);
+        return s.size()-lps;
     }
 };
