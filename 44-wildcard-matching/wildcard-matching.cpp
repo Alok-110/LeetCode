@@ -1,6 +1,5 @@
 class Solution {
 public:
-
     bool memo(auto &s, auto &p, int i, int j, auto &dp){
 
         if(i==s.size() && j==p.size()) return true;
