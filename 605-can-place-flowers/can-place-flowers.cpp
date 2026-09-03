@@ -2,7 +2,7 @@ class Solution {
 public:
     bool canPlaceFlowers(vector<int>& flowerbed, int n) {
         
-        int emptyPlots = 1; // virtual 1 before start
+        int emptyPlots = 1;
         int flowers = 0;
 
         for(int i = 0; i < flowerbed.size(); i++){
